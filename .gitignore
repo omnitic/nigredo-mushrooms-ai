@@ -1,0 +1,12 @@
+# Entornos virtuales
+venv/
+__pycache__/
+
+# Variables de entorno y credenciales
+.env
+
+# Archivos de la base de datos vectorial local
+faiss_index/
+
+# Archivos del sistema
+.DS_Store
