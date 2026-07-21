@@ -33,3 +33,13 @@ Para garantizar la escalabilidad, la estabilidad del entorno Linux y mantener lo
 2. **Motor de Inferencia con Groq y Llama 3 (Meta):** 
    * Sustituye a Gemini como el cerebro conversacional del agente.
    * *Justificación:* Groq es un motor de inferencia diseñado específicamente para maximizar la velocidad. Ofrece una capa gratuita sumamente estable para desarrolladores y el modelo Llama-3-8B garantiza respuestas técnicas inmediatas y precisas para los operarios de Nigredo, con una integración impecable en LangChain.
+
+### Actualización del Motor y Sintaxis (Julio 2026)
+
+**Contexto del Problema:** 
+1. El módulo clásico `langchain.chains` fue marcado como obsoleto en la versión más reciente del framework.
+2. El modelo inicial de Groq (`llama3-8b-8192`) fue retirado de sus servidores (decommissioned).
+
+**Decisión Técnica:**
+1. **Migración a LCEL (LangChain Expression Language):** Se reescribió el flujo del agente usando la sintaxis moderna de LangChain (tuberías modulares) para garantizar compatibilidad futura y un código más limpio.
+2. **Actualización a Llama 3.1:** Se cambió el motor de inferencia a `llama-3.1-8b-instant`, asegurando el acceso a la última y más eficiente versión del modelo gratuito de Meta.
