@@ -43,3 +43,24 @@ Para garantizar la escalabilidad, la estabilidad del entorno Linux y mantener lo
 **Decisión Técnica:**
 1. **Migración a LCEL (LangChain Expression Language):** Se reescribió el flujo del agente usando la sintaxis moderna de LangChain (tuberías modulares) para garantizar compatibilidad futura y un código más limpio.
 2. **Actualización a Llama 3.1:** Se cambió el motor de inferencia a `llama-3.1-8b-instant`, asegurando el acceso a la última y más eficiente versión del modelo gratuito de Meta.
+
+## Interfaces de Usuario (Fase 4)
+
+El ecosistema cuenta con dos interfaces para interactuar con el motor RAG de Inteligencia Artificial ("Fungiagente"), diseñadas para adaptarse al entorno de trabajo en oficina y en el área de cultivo.
+
+### 1. Interfaz Web (Streamlit)
+Aplicación web de escritorio con la identidad visual corporativa de Nigredo, ideal para consultas extensas.
+
+**Ejecución:**
+1. Asegurarse de que el servidor FastAPI esté corriendo: `uvicorn app.main:app --reload`
+2. En una nueva terminal, activar el entorno virtual y ejecutar: `streamlit run app/ui.py`
+3. La interfaz se abrirá automáticamente en `http://localhost:8501`.
+
+### 2. Integración Móvil (Bot de Telegram)
+Canal de comunicación ágil para consultas operativas directamente desde dispositivos móviles en la zona de producción.
+
+**Configuración y Ejecución:**
+1. Obtener un token a través de BotFather en Telegram.
+2. Añadir el token al archivo `.env` en la raíz del proyecto: `TELEGRAM_BOT_TOKEN="tu_token"`.
+3. Con el servidor FastAPI corriendo, iniciar el puente de Telegram en una nueva terminal ejecutando: `python app/telegram_bot.py`
+
