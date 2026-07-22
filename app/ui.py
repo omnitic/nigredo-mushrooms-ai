@@ -54,11 +54,12 @@ st.markdown("""
 # Alineamos los elementos verticalmente para que el logo no quede flotando
 col1, col2 = st.columns([1, 4], vertical_alignment="center")
 
-logo_path = "../pictures/logo_nigredo_blanco.png"
+# MODIFICACIÓN AQUÍ: Eliminamos los "../" iniciales para que  pueda leer la ruta correcta del Logo
+logo_path = "pictures/logo_nigredo_blanco.png"
 if os.path.exists(logo_path):
     with col1:
         # CORRECCIÓN: use_container_width en lugar del obsoleto use_column_width
-        st.image(logo_path, use_container_width=True)
+        st.image(logo_path, width="stretch")
 else:
     with col1:
         st.write("🍄") 
@@ -70,20 +71,25 @@ with col2:
 banner_path = "../pictures/cultivo_hongos.png"
 if os.path.exists(banner_path):
     # CORRECCIÓN: use_container_width en lugar del obsoleto use_column_width
-    st.image(banner_path, use_container_width=True)
+    st.image(banner_path, width="stretch")
 
 st.divider()
+    
+# 4. Inicialización del Historial y Mensaje de Bienvenida
+if "messages" not in st.session_state:
+    mensaje_bienvenida = (
+        "**¡Hola! Soy Fungiagente 🍄, tu asistente en los procesos de cultivo de hongos comestibles de Nigredo**\n\n"
+        "Te puedo ayudar proporcionándote información general acerca de los hongos que trabajamos, el sustrato que puedes usar, parámetros de cultivo y muchas cosas más.\n\n"
+        "**¿Listo para sumergirte en el proceso alquímico del cultivo de hongos? ¡Vamos allá!**"
+    )
+    # Guardamos el mensaje real directamente en la memoria desde el inicio
+    st.session_state.messages = [{"role": "assistant", "content": mensaje_bienvenida}]
 
-# 4. Inicializar el historial de conversación en la memoria
-if "mensajes" not in st.session_state:
-    st.session_state.mensajes = [{"rol": "assistant", "contenido": "¡Hola, equipo Nigredo! Soy Fungiagente. ¿En qué parámetro del manual o proceso de cultivo te puedo asistir hoy?"}]
-
-# 5. Renderizar los mensajes previos en pantalla con Avatares Personalizados
-for mensaje in st.session_state.mensajes:
-    # Asignamos un hongo a la IA y una silueta al usuario
-    icono = "🍄" if mensaje["rol"] == "assistant" else "👤"
-    with st.chat_message(mensaje["rol"], avatar=icono):
-        st.markdown(mensaje["contenido"])
+# 5. Renderizado de TODOS los mensajes
+for mensaje in st.session_state.messages:
+    icono = "🍄" if mensaje["role"] == "assistant" else "👤"
+    with st.chat_message(mensaje["role"], avatar=icono):
+        st.write(mensaje["content"])
 
 # 6. Capturar la consulta del usuario
 pregunta = st.chat_input("Escribe tu consulta técnica aquí...")
@@ -91,7 +97,9 @@ pregunta = st.chat_input("Escribe tu consulta técnica aquí...")
 if pregunta:
     with st.chat_message("user", avatar="👤"):
         st.markdown(pregunta)
-    st.session_state.mensajes.append({"rol": "user", "contenido": pregunta})
+    
+    # CORRECCIÓN: Guardamos usando la variable en inglés 'messages', 'role' y 'content'
+    st.session_state.messages.append({"role": "user", "content": pregunta})
 
     # 7. Conectar con el microservicio RAG
     with st.chat_message("assistant", avatar="🍄"):
@@ -100,14 +108,15 @@ if pregunta:
         
         try:
             respuesta_api = requests.post(
-                "http://127.0.0.1:8000/api/v1/consultar",
+                "http://localhost:8000/api/v1/consultar",
                 json={"pregunta": pregunta}
             )
             
             if respuesta_api.status_code == 200:
                 respuesta_texto = respuesta_api.json()["respuesta"]
                 indicador.markdown(respuesta_texto)
-                st.session_state.mensajes.append({"rol": "assistant", "contenido": respuesta_texto})
+                # CORRECCIÓN: Guardamos la respuesta de la IA usando las variables en inglés
+                st.session_state.messages.append({"role": "assistant", "content": respuesta_texto})
             else:
                 indicador.error(f"Error de conexión con el motor IA: Código {respuesta_api.status_code}")
                 

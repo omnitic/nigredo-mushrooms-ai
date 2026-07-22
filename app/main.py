@@ -36,7 +36,7 @@ async def startup_event():
     print("Cargando la base de datos vectorial local...")
     
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectorstore = FAISS.load_local("../faiss_index", embeddings, allow_dangerous_deserialization=True)
+    vectorstore = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     retriever = vectorstore.as_retriever()
     
     print("Conectando con el cerebro LLM de Groq (Llama 3)...")
