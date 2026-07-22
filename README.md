@@ -64,3 +64,9 @@ Canal de comunicación ágil para consultas operativas directamente desde dispos
 2. Añadir el token al archivo `.env` en la raíz del proyecto: `TELEGRAM_BOT_TOKEN="tu_token"`.
 3. Con el servidor FastAPI corriendo, iniciar el puente de Telegram en una nueva terminal ejecutando: `python app/telegram_bot.py`
 
+### Gestión de Conocimiento y Comportamiento del Agente (Fungiagente)
+
+El sistema ha sido refinado para ofrecer una experiencia de usuario natural y precisa:
+
+* **Actualización Dinámica de la Base Vectorial:** El sistema permite la actualización del manual de operaciones central (`data/manual_hongos.pdf`). Al reemplazar el archivo físico y re-ejecutar el script de ingesta, FAISS reescribe los vectores automáticamente, permitiendo que la IA absorba nuevo conocimiento sin alterar la arquitectura del código.
+* **Procesamiento de Lenguaje Natural (NLP) Empático:** El `system_prompt` está diseñado con instrucciones de enrutamiento lógico. Fungiagente es capaz de distinguir entre interacciones sociales (saludos, agradecimientos) y consultas operativas complejas. Esto evita respuestas robóticas o errores de búsqueda, manteniendo un tono colaborativo alineado con la filosofía de transformación y sostenibilidad del proyecto.
