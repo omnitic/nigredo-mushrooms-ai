@@ -11,9 +11,10 @@ TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 # 2. Definir el comando de bienvenida (/start)
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mensaje_bienvenida = (
-        "¡Hola, equipo Nigredo! Soy Fungiagente. 🍄\n\n"
-        "Estoy conectado a la base de datos central.\n"
-        "¿En qué parámetro del manual o proceso de cultivo te puedo asistir hoy?"
+        "¡Hola! Soy Fungiagente. 🍄\n\n"
+        "Tu asistente en los procesos de cultivo de hongos comestibles de Nigredo.\n"
+        "Te puedo ayudar proporcionándote información general acerca de los hongos que trabajamos, el sustrato que puedes usar, parámetros de cultivo y muchas cosas más\n\n."
+	"¿Listo para sumergirte en el proceso alquímico del cultivo de hongos? ¡Vamos allá!"
     )
     await update.message.reply_text(mensaje_bienvenida)
 
@@ -27,7 +28,7 @@ async def manejar_mensaje(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # Enviar la consulta a nuestro servidor FastAPI local
         respuesta_api = requests.post(
-            "http://127.0.0.1:8000/api/v1/consultar",
+            "http://localhost:8000/api/v1/consultar",
             json={"pregunta": pregunta}
         )
         
