@@ -115,6 +115,36 @@ Para el entorno de producción 24/7 de alta disponibilidad, la plataforma selecc
 * **Bot de Telegram:** Activo y procesando consultas operativas 24/7. Acceso: @fungiagente_nigredo_bot
 * **Interfaz Web (Streamlit):** Disponible a través del dominio proporcionado por Railway. Link: https://nigredo-mushrooms-ai-production.up.railway.app/
 
+## Ejemplos de Interacción (Preguntas y Respuestas)
+
+Fungiagente está entrenado para resolver dudas operativas basándose estrictamente en el manual de cultivo de hongos comestibles de Nigredo. A continuación, se muestran ejemplos de cómo interactúa el modelo tanto con información interna como con consultas no relacionadas:
+
+### Consultas dentro del dominio (Soportadas por el Manual)
+
+**Ejemplo 1: Integración de sustratos locales y economía circular**
+* **Usuario:** ¿Qué sustratos locales y subproductos puedo utilizar para cultivar la Seta ostra gris siguiendo nuestros principios de economía circular?
+* **Fungiagente:** Para el cultivo de la Seta ostra gris (Pleurotus ostreatus), puedes utilizar paja de trigo o cebada, olote molido o aserrín de encino[cite: 3]. Para seguir el enfoque de economía circular, puedes suplementarlo con 10-20% de borra de café pasteurizada, e incluso utilizar rastrojo de maíz y bagazo de caña picado[cite: 3].
+
+**Ejemplo 2: Parámetros de control ambiental**
+* **Usuario:** ¿Cuáles son los parámetros ambientales ideales para la etapa de incubación de la Melena de león?
+* **Fungiagente:** Durante la etapa de incubación de la Melena de león (Hericium erinaceus), la temperatura debe mantenerse entre 21-24 °C[cite: 3]. Además, el proceso debe realizarse en oscuridad total y dentro de una bolsa cerrada[cite: 3].
+
+**Ejemplo 3: Indicadores de cosecha**
+* **Usuario:** ¿Cuál es el momento adecuado para cosechar el hongo Reishi y qué debo hacer inmediatamente después?
+* **Fungiagente:** Debes cosechar el Reishi (Ganoderma lucidum) cuando el borde blanco de crecimiento se detenga y el sombrero adquiera un color caoba uniforme[cite: 3]. Inmediatamente después de cortarlo, es necesario secarlo para evitar su deterioro[cite: 3].
+
+### Consultas fuera del dominio (Comportamiento de contención)
+
+Fungiagente cuenta con un marco de comportamiento empático pero estricto. Si un operario pregunta algo fuera del manual, el agente reorientará amablemente la conversación hacia su área de especialidad.
+
+**Ejemplo 4: Consulta tecnológica general**
+* **Usuario:** ¿Me puedes escribir un código en Python para analizar datos de ventas de la empresa?
+* **Fungiagente:** Hola. Soy un asistente especializado exclusivamente en el manual de cultivo de hongos de Nigredo y en nuestros principios de economía circular. Aunque me encantaría ayudarte con tu código en Python, mi conocimiento se limita estrictamente a la fungicultura, sustratos y procesos biológicos descritos en nuestra documentación técnica. ¿Hay algo sobre los ciclos de cultivo de nuestras cepas en lo que te pueda ayudar?
+
+**Ejemplo 5: Consulta de información en tiempo real**
+* **Usuario:** ¿Cuál es el pronóstico del clima en Xalapa para este fin de semana?
+* **Fungiagente:** Como Inteligencia Artificial de la red interna de Nigredo, no tengo conexión a internet en tiempo real para verificar el pronóstico del clima actual. Mi función es apoyarte resolviendo dudas operativas del manual de cultivo. Si necesitas revisar los rangos de temperatura ideales que debemos mantener en los cuartos de fructificación, ¡estaré encantado de proporcionártelos!
+
 ## Capturas de Pantalla
 
 ### Interfaz Web
