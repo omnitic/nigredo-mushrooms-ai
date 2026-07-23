@@ -1,19 +1,23 @@
-# Nigredo Mushrooms AI - Sistema RAG
+# FUNGIAGENTE (Nigredo Mushrooms AI - Sistema RAG) 
 
-API REST basada en Inteligencia Artificial (Gemini 1.5) para la consulta automatizada de manuales de cultivo de hongos dela Empresa Nigredo SAS.
+API REST basada en Inteligencia Artificial para la consulta automatizada del manual de cultivo bajo principios de sostenibilidad y economía circular de hongos de  la Empresa Nigredo SAS.
 
 ## Arquitectura
 - **Framework AI:** LangChain
-- **LLM y Embeddings:** Google Gemini (gemini-1.5-flash / text-embedding-004)
+- **LLM y Embeddings:** Meta Llama 3.1 8B (vía Groq)
+- **Embeddings:** HuggingFace (`all-MiniLM-L6-v2`)
 - **Vector Store:** FAISS
 - **Procesamiento de PDF:** PyPDF
 - **API Backend:** FastAPI + Uvicorn
+- **Interfaz Móvil / Mensajería:** Telegram Bot API
+- **Contenerizaciòn:** Docker
+- **Infraestructura / Despliegue:** Railway (Paas)
 
 ## Configuración Local
 1. Clonar el repositorio.
 2. Crear y activar entorno virtual: `python3 -m venv venv && source venv/bin/activate`
 3. Instalar dependencias: `pip install -r requirements.txt`
-4. Configurar el archivo `.env` con la variable `GOOGLE_API_KEY`.
+4. Crear y Configurar el archivo `.env` en la raíz del proyecto con las siguientes variables `GROQ_API_KEY` y `TELEGRAM_BOT_TOKEN`
 5. Ejecutar la API: `uvicorn app.main:app --reload`
 
 ## Historial de Decisiones de Arquitectura (ADR)
@@ -21,7 +25,7 @@ API REST basada en Inteligencia Artificial (Gemini 1.5) para la consulta automat
 ### Refactorización de Embeddings y LLM 
 
 **Contexto del Problema:** 
-Durante la fase inicial de desarrollo y vectorización de los manuales de cultivo, el SDK nativo de Google (`google-genai`) presentó problemas de compatibilidad de versiones y errores internos recurrentes de formato (`NOT_FOUND`, `unexpected model name format`) al intentar integrarse con las últimas versiones de LangChain.
+Inicialmente se tenía pautado usar como LLM gemini-1.5-flash y text-embedding-004 para el Embeddings. Ambos de Google Gemini. Sin embargo, durante la fase inicial de desarrollo y vectorización del manual de cultivo, el SDK nativo de Google (`google-genai`) presentó problemas de compatibilidad de versiones y errores internos recurrentes de formato (`NOT_FOUND`, `unexpected model name format`) al intentar integrarse con las últimas versiones de LangChain.
 
 **Decisión Técnica:** 
 Para garantizar la escalabilidad, la estabilidad del entorno Linux y mantener los costos operativos estrictamente en cero, se reestructuró el pipeline RAG reemplazando por completo el ecosistema de Google por alternativas de código abierto y alta disponibilidad.
@@ -71,7 +75,7 @@ El sistema ha sido refinado para ofrecer una experiencia de usuario natural y pr
 * **Actualización Dinámica de la Base Vectorial:** El sistema permite la actualización del manual de operaciones central (`data/manual_hongos.pdf`). Al reemplazar el archivo físico y re-ejecutar el script de ingesta, FAISS reescribe los vectores automáticamente, permitiendo que la IA absorba nuevo conocimiento sin alterar la arquitectura del código.
 * **Procesamiento de Lenguaje Natural (NLP) Empático:** El `system_prompt` está diseñado con instrucciones de enrutamiento lógico. Fungiagente es capaz de distinguir entre interacciones sociales (saludos, agradecimientos) y consultas operativas complejas. Esto evita respuestas robóticas o errores de búsqueda, manteniendo un tono colaborativo alineado con la filosofía de transformación y sostenibilidad del proyecto.
 
-### Ajustes Finales de Producción (Fase 6 - Estabilización)
+### Ajustes Finales de Producción (Fase de Estabilización)
 
 Para garantizar la correcta ejecución del contenedor en cualquier entorno, se implementaron las siguientes correcciones estructurales:
 
@@ -84,3 +88,29 @@ Para garantizar la correcta ejecución del contenedor en cualquier entorno, se i
 \`\`\`bash
 sudo docker run -d -p 8000:8000 -p 8501:8501 --env-file .env --name fungiagente-app fungiagente:v1
 \`\`\`
+
+## 🚀 Despliegue en Producción (Railway)
+
+Para el entorno de producción 24/7 de alta disponibilidad, la plataforma seleccionada es **Railway**, que permite un despliegue continuo (CI/CD) directamente desde el repositorio de GitHub.
+
+### Pasos de Configuración en el Servidor:
+
+1. **Conexión del Repositorio:** 
+   El proyecto se enlaza directamente a Railway seleccionando la opción *"Deploy from GitHub repo"*. Railway detectará automáticamente el `Dockerfile` en la raíz e iniciará el proceso de construcción.
+
+2. **Inyección de Variables de Entorno:**
+   Para que el agente pueda inicializarse, es obligatorio inyectar las siguientes variables desde la pestaña **Variables** en el panel de Railway antes del despliegue final:
+   * `TELEGRAM_BOT_TOKEN`: Token otorgado por BotFather.
+   * `GROQ_API_KEY`: Clave de acceso al motor LLM.
+   
+3. **Mapeo de Puertos e Interfaz Web:**
+   La arquitectura maneja dos puertos internos (8000 para FastAPI y 8501 para Streamlit). Para exponer la interfaz visual al público de manera correcta:
+   * En la configuración de **Networking**, se genera un dominio público.
+   * Se asigna el puerto **`8501`** de manera explícita (ya sea en la configuración de red o inyectando la variable `PORT = 8501`) para enrutar el tráfico web directamente hacia Streamlit.
+
+4. **Sincronización de Base Vectorial:**
+   El conocimiento fundacional del modelo reside en el directorio `faiss_index/`. Esta carpeta debe estar presente en la rama principal (main) de GitHub para que Railway la integre en la compilación y Fungiagente pueda acceder a sus bases documentales.
+
+### Estado Actual del Servicio
+* **Bot de Telegram:** Activo y procesando consultas operativas 24/7. Acceso: @fungiagente_nigredo_bot
+* **Interfaz Web (Streamlit):** Disponible a través del dominio proporcionado por Railway. Link: https://nigredo-mushrooms-ai-production.up.railway.app/
