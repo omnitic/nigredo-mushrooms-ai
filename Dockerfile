@@ -23,7 +23,7 @@ COPY data/ data/
 COPY pictures/ pictures/
 COPY faiss_index/ faiss_index/
 RUN mv app/.streamlit .streamlit
-COPY .env .env
+# COPY .env .env
 
 # 8. Abrir los puertos de comunicación
 EXPOSE 8000
