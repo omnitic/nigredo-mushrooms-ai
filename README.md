@@ -114,3 +114,25 @@ Para el entorno de producción 24/7 de alta disponibilidad, la plataforma selecc
 ### Estado Actual del Servicio
 * **Bot de Telegram:** Activo y procesando consultas operativas 24/7. Acceso: @fungiagente_nigredo_bot
 * **Interfaz Web (Streamlit):** Disponible a través del dominio proporcionado por Railway. Link: https://nigredo-mushrooms-ai-production.up.railway.app/
+
+### Capturas de Pantalla
+
+## Interfaz Web
+
+![Inicio](screenshop/interfaz_web.png)
+
+![Consultando a Fungiagente](screenshop/chat_interfaz_web.png)
+
+## Bot de Telegram
+
+![Inicio_bot](screenshop/bot_inicio.jpeg)
+
+![Mensaje de Bienvenida](screenshop/mensaje_bienvenida.jpeg)
+
+![Consulta](screenshop/consulta_bot.jpeg)
+
+
+
+
+
+
