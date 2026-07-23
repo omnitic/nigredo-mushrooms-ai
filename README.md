@@ -119,17 +119,27 @@ Para el entorno de producción 24/7 de alta disponibilidad, la plataforma selecc
 
 ## Interfaz Web
 
-![Inicio](screenshop/interfaz_web.png)
+# Inicio
 
-![Consultando a Fungiagente](screenshop/chat_interfaz_web.png)
+![Inicio](screenshot/interfaz_web.png)
+
+# Consultando a Fungiagente
+
+![Consultando a Fungiagente](screenshot/chat_interfaz_web.png)
 
 ## Bot de Telegram
 
-![Inicio_bot](screenshop/bot_inicio.jpeg)
+# Inicio
 
-![Mensaje de Bienvenida](screenshop/mensaje_bienvenida.jpeg)
+![Inicio_bot](screenshot/bot_inicio.jpeg)
 
-![Consulta](screenshop/consulta_bot.jpeg)
+# Mensaje de Bienvenida
+
+![Mensaje de Bienvenida](screenshot/mensaje_bienvenida.jpeg)
+
+# Consulta
+
+![Consulta](screenshot/consulta_bot.jpeg)
 
 
 
